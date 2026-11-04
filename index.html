@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="pt-BR" data-theme="dark" data-brand="sasi" data-style="standard">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Painel · Cidade na Mão</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/tokens.css">
+  <link rel="stylesheet" href="assets/base.css">
+  <link rel="stylesheet" href="assets/sistema.css">
+  <script>
+    try { if (!sessionStorage.getItem('cnm:auth')) location.replace('login.html'); } catch {}
+    try { const t = localStorage.getItem('cnm:theme'); if (t) document.documentElement.dataset.theme = t; } catch {}
+  </script>
+</head>
+<body>
+  <aside class="sidebar" id="sidebar" aria-label="Menu principal">
+    <div class="sb-brand">
+      <span class="sb-mark" aria-hidden="true">CM</span>
+      <span><strong>Cidade na Mão</strong><small>Monitoramento</small></span>
+    </div>
+    <nav class="sb-nav" id="nav"></nav>
+    <div class="sb-spacer"></div>
+    <nav class="sb-nav" id="navBottom"></nav>
+    <footer class="sb-foot">
+      <span>v.1.0.0</span>
+      <span id="dataDate">Dados de --/--/----</span>
+      <span>Desenvolvido por SASI</span>
+    </footer>
+  </aside>
+  <div class="scrim" id="scrim"></div>
+
+  <div class="shell">
+    <header class="header">
+      <button class="hdr-btn" id="menuBtn" aria-label="Abrir menu"></button>
+      <h1 id="pageTitle">Painel</h1>
+      <div class="header-right">
+        <span class="live" id="live" title="Solicitações do app chegando em tempo real"><span class="live-dot"></span><span id="liveText">Ao vivo</span></span>
+        <span class="lang">Português (BR)</span>
+        <button class="hdr-btn" id="themeBtn" aria-label="Alternar tema claro e escuro"></button>
+        <span class="user"><span class="avatar">PM</span><span class="uname" id="userName">Prefeitura</span></span>
+      </div>
+    </header>
+    <main class="page" id="page"></main>
+  </div>
+
+  <div class="toasts" id="toasts" aria-live="polite"></div>
+  <dialog class="dialog" id="dlg"></dialog>
+
+  <script src="assets/icons.js"></script>
+  <script src="assets/bus.js"></script>
+  <script src="assets/dados.js"></script>
+  <script src="assets/sistema.js"></script>
+</body>
+</html>

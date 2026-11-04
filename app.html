@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="pt-BR" data-theme="light" data-brand="emerald" data-style="friendly">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#047857">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <title>Cidade na Mão · App do cidadão</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/tokens.css">
+  <link rel="stylesheet" href="assets/base.css">
+  <link rel="stylesheet" href="assets/app.css">
+</head>
+<body>
+  <div class="stage">
+    <div class="device">
+      <div class="screen" id="screen">
+        <div class="statusbar" aria-hidden="true">
+          <span class="mono" id="sbTime">--:--</span>
+          <span class="sb-icons" id="sbIcons"></span>
+        </div>
+
+        <div class="push" id="push" role="alert" hidden></div>
+
+        <main class="view" id="view"></main>
+
+        <nav class="tabbar" id="tabbar" aria-label="Navegação principal"></nav>
+
+        <div class="critical" id="critical" hidden role="alertdialog" aria-modal="true" aria-labelledby="critTitle"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="unlock" id="unlock" hidden>
+    <div class="unlock-card">
+      <div class="unlock-ic" id="unlockIc"></div>
+      <h2>Ative os alertas da prefeitura</h2>
+      <p>Você vai receber avisos da Defesa Civil, saúde e serviços do seu bairro em tempo real, com som e vibração.</p>
+      <button class="btn btn-primary btn-lg" id="unlockBtn">Ativar alertas</button>
+    </div>
+  </div>
+
+  <script src="assets/icons.js"></script>
+  <script src="assets/bus.js"></script>
+  <script src="assets/app.js"></script>
+</body>
+</html>

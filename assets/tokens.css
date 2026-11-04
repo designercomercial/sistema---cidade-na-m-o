@@ -1,0 +1,1118 @@
+:root {
+  /* ===========================================================================
+     PRIMITIVE COLOR SCALES (raw, never assign to UI directly — use semantic)
+     11-step scales, 0 (pure white-ish) → 1000 (near black or saturated dark)
+     Tuned for WCAG: step 600 ≥ 4.5:1 on white; step 50–100 ≥ 4.5:1 on step 700+.
+     =========================================================================== */
+
+  /* Neutral — SASI "Sumé" Gray ramp (cool, slightly blue) */
+  --neutral-0:    #fcfcfd;
+  --neutral-50:   #f0f2f4;
+  --neutral-100:  #e2e4e9;
+  --neutral-200:  #c4c9d4;
+  --neutral-300:  #a7afbe;
+  --neutral-400:  #8a94a8;
+  --neutral-500:  #6c7993;
+  --neutral-600:  #576175;
+  --neutral-700:  #414958;
+  --neutral-800:  #2b303b;
+  --neutral-900:  #1e2229;
+  --neutral-1000: #0a0b0b;
+
+  /* SASI brand products — each maps a Sumé hue family to a white-label tenant.
+     sasi = Primary Blue · distributor = Violet · client = Teal */
+  --sasi-50:  #e5efff;  --sasi-100: #ccdeff;  --sasi-200: #99bdff;
+  --sasi-300: #669dff;  --sasi-400: #337cff;  --sasi-500: #005bff;
+  --sasi-600: #0049cc;  --sasi-700: #003799;  --sasi-800: #002466;
+  --sasi-900: #001233;
+
+  /* SASI marque indigo — the dense desaturated indigo of the real SASI logo,
+     sidebar and primary buttons (Sumé brand-500 = rgb(57,74,165)). This is what
+     [data-brand="sasi"] resolves to; the lighter "blue" (#005bff) lives on as
+     [data-brand="blue"]. */
+  --sasi-indigo-50:  #eceef8;  --sasi-indigo-100: #d9ddf0;  --sasi-indigo-200: #b3bbe2;
+  --sasi-indigo-300: #6c79c9;  --sasi-indigo-400: #5263b8;  --sasi-indigo-500: #394aa5;
+  --sasi-indigo-600: #2d3a81;  --sasi-indigo-700: #232d64;  --sasi-indigo-800: #1c234f;
+  --sasi-indigo-900: #11173a;
+
+  --distributor-50:  #f2e7fd;  --distributor-100: #e6cffc;  --distributor-200: #cc9ff9;
+  --distributor-300: #b370f5;  --distributor-400: #9940f2;  --distributor-500: #8010ef;
+  --distributor-600: #660dbf;  --distributor-700: #4d0a8f;  --distributor-800: #330660;
+  --distributor-900: #1a0330;
+
+  --client-50:  #e6f5f3;  --client-100: #b0deda;  --client-200: #8acfc8;
+  --client-300: #54b9af;  --client-400: #33aba0;  --client-500: #009688;
+  --client-600: #00897c;  --client-700: #006b61;  --client-800: #00534b;
+  --client-900: #003f39;
+
+  /* Additional white-label brand-hue families — each a full 50→900 ramp.
+     Combined with sasi(Blue)/distributor(Violet)/client(Teal) the system ships 12. */
+  --indigo-50:  #eef2ff;  --indigo-100: #e0e7ff;  --indigo-200: #c7d2fe;
+  --indigo-300: #a5b4fc;  --indigo-400: #818cf8;  --indigo-500: #6366f1;
+  --indigo-600: #4f46e5;  --indigo-700: #4338ca;  --indigo-800: #3730a3;
+  --indigo-900: #312e81;
+
+  --fuchsia-50:  #fdf4ff;  --fuchsia-100: #fae8ff;  --fuchsia-200: #f5d0fe;
+  --fuchsia-300: #f0abfc;  --fuchsia-400: #e879f9;  --fuchsia-500: #d946ef;
+  --fuchsia-600: #c026d3;  --fuchsia-700: #a21caf;  --fuchsia-800: #86198f;
+  --fuchsia-900: #701a75;
+
+  --pink-50:  #fdf2f8;  --pink-100: #fce7f3;  --pink-200: #fbcfe8;
+  --pink-300: #f9a8d4;  --pink-400: #f472b6;  --pink-500: #ec4899;
+  --pink-600: #db2777;  --pink-700: #be185d;  --pink-800: #9d174d;
+  --pink-900: #831843;
+
+  --rose-br-50:  #fff1f2;  --rose-br-100: #ffe4e6;  --rose-br-200: #fecdd3;
+  --rose-br-300: #fda4af;  --rose-br-400: #fb7185;  --rose-br-500: #f43f5e;
+  --rose-br-600: #e11d48;  --rose-br-700: #be123c;  --rose-br-800: #9f1239;
+  --rose-br-900: #881337;
+
+  --red-br-50:  #fef2f2;  --red-br-100: #fee2e2;  --red-br-200: #fecaca;
+  --red-br-300: #fca5a5;  --red-br-400: #f87171;  --red-br-500: #ef4444;
+  --red-br-600: #dc2626;  --red-br-700: #b91c1c;  --red-br-800: #991b1b;
+  --red-br-900: #7f1d1d;
+
+  --orange-50:  #fff7ed;  --orange-100: #ffedd5;  --orange-200: #fed7aa;
+  --orange-300: #fdba74;  --orange-400: #fb923c;  --orange-500: #f97316;
+  --orange-600: #ea580c;  --orange-700: #c2410c;  --orange-800: #9a3412;
+  --orange-900: #7c2d12;
+
+  --amber-br-50:  #fffbeb;  --amber-br-100: #fef3c7;  --amber-br-200: #fde68a;
+  --amber-br-300: #fcd34d;  --amber-br-400: #fbbf24;  --amber-br-500: #f59e0b;
+  --amber-br-600: #d97706;  --amber-br-700: #b45309;  --amber-br-800: #92400e;
+  --amber-br-900: #78350f;
+
+  --emerald-br-50:  #ecfdf5;  --emerald-br-100: #d1fae5;  --emerald-br-200: #a7f3d0;
+  --emerald-br-300: #6ee7b7;  --emerald-br-400: #34d399;  --emerald-br-500: #10b981;
+  --emerald-br-600: #059669;  --emerald-br-700: #047857;  --emerald-br-800: #065f46;
+  --emerald-br-900: #064e3b;
+
+  --cyan-50:  #ecfeff;  --cyan-100: #cffafe;  --cyan-200: #a5f3fc;
+  --cyan-300: #67e8f9;  --cyan-400: #22d3ee;  --cyan-500: #06b6d4;
+  --cyan-600: #0891b2;  --cyan-700: #0e7490;  --cyan-800: #155e75;
+  --cyan-900: #164e63;
+
+  /* Status hue families (Sumé Green / Yellow / Red / Primary-blue for info).
+     Names kept generic so the semantic layer below can reference them unchanged. */
+  --emerald-50:  #e7f9f4; --emerald-100: #b4ebde; --emerald-200: #8fe2ce;
+  --emerald-300: #5cd5b8; --emerald-400: #3dcdaa; --emerald-500: #0cc095;
+  --emerald-600: #0baf88; --emerald-700: #09886a; --emerald-800: #076a52;
+  --emerald-900: #033328;
+
+  --rose-50:  #fdeae8;  --rose-100: #fbd6d0;  --rose-200: #f6aca2;
+  --rose-300: #f28373;  --rose-400: #ed5945;  --rose-500: #e93016;
+  --rose-600: #ba2612;  --rose-700: #8c1d0d;  --rose-800: #5d1309;
+  --rose-900: #2f0a04;
+
+  --amber-50:  #fff8e5;  --amber-100: #fff1cc; --amber-200: #ffe299;
+  --amber-300: #ffd466;  --amber-400: #ffc633; --amber-500: #ffb800;
+  --amber-600: #cc9300;  --amber-700: #996e00; --amber-800: #664900;
+  --amber-900: #332500;
+
+  --sky-50:   #e5efff;   --sky-100:  #ccdeff;  --sky-200:  #99bdff;
+  --sky-300:  #669dff;   --sky-400:  #337cff;  --sky-500:  #005bff;
+  --sky-600:  #0049cc;   --sky-700:  #003799;  --sky-800:  #002466;
+  --sky-900:  #001233;
+
+  /* Sumé accent families (available for charts / illustration, not brand) */
+  --violet-500: #8010ef; --violet-600: #660dbf;
+  --teal-500:   #009688; --teal-600:   #00897c;
+  --tangerine-500: #ff5722; --tangerine-600: #e84f1f;
+
+  /* ===========================================================================
+     BRAND scale — re-aliased per [data-brand] on :root. Default: SASI.
+     [data-brand] values: "sasi" | "distributor" | "client"
+     =========================================================================== */
+  --brand-50:  var(--sasi-50);
+  --brand-100: var(--sasi-100);
+  --brand-200: var(--sasi-200);
+  --brand-300: var(--sasi-300);
+  --brand-400: var(--sasi-400);
+  --brand-500: var(--sasi-500);
+  --brand-600: var(--sasi-600);
+  --brand-700: var(--sasi-700);
+  --brand-800: var(--sasi-800);
+  --brand-900: var(--sasi-900);
+
+  /* ===========================================================================
+     CONTROL GEOMETRY — buttons, inputs, selects.
+     These are NEW tokens that primitives read so density flexes per style.
+     Defaults match the "standard" preset; overridden in each [data-style] block.
+     =========================================================================== */
+  --ctl-h-xs:    26px;
+  --ctl-h-sm:    32px;
+  --ctl-h-md:    38px;
+  --ctl-h-lg:    46px;
+
+  --ctl-px-xs:   8px;
+  --ctl-px-sm:   12px;
+  --ctl-px-md:   16px;
+  --ctl-px-lg:   20px;
+
+  --ctl-fs-xs:   12px;
+  --ctl-fs-sm:   13px;
+  --ctl-fs-md:   14px;
+  --ctl-fs-lg:   16px;
+
+  --ctl-ic-xs:   12px;
+  --ctl-ic-sm:   14px;
+  --ctl-ic-md:   16px;
+  --ctl-ic-lg:   18px;
+
+  --ctl-gap-xs:  4px;
+  --ctl-gap-sm:  6px;
+  --ctl-gap-md:  8px;
+  --ctl-gap-lg:  10px;
+
+  --ctl-bw:      1px;        /* control border width */
+  --ctl-fw:      500; /* @kind font */        /* button label weight */
+
+  /* Card */
+  --card-pad:    20px;
+  --card-bw:     1px;
+  --card-radius: var(--radius-lg);
+  --card-shadow: var(--shadow-sm);
+
+  /* Input */
+  --input-shadow:    none;
+  --input-bw:        var(--ctl-bw);
+
+  /* Button elevation */
+  --button-shadow:        none;
+  --button-shadow-hover:  var(--shadow-xs);
+
+  /* Focus ring geometry */
+  --ring-width:  3px;
+  --ring-offset: 0px;
+
+  /* Default motion language for components */
+  --ease-default: var(--ease-out); /* @kind other */
+  --dur-default:  var(--dur-base); /* @kind other */
+
+  /* Link decoration default */
+  --link-decoration:        none; /* @kind other */
+  --link-decoration-hover:  underline; /* @kind other */
+
+  /* ===========================================================================
+     TYPOGRAPHY
+     =========================================================================== */
+  --font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+  /* SASI brand display family (Circular Std, vendored in ../fonts). Falls back to
+     the active --font-sans for non-SASI brands. Arabic locale swaps in via [dir=rtl]. */
+  --font-arabic: 'Noto Sans Arabic', 'Inter', system-ui, sans-serif;
+
+  --text-xs:   12px;
+  --text-sm:   14px;
+  --text-base: 16px;
+  --text-lg:   18px;
+  --text-xl:   20px;
+  --text-2xl:  24px;
+  --text-3xl:  30px;
+  --text-4xl:  36px;
+  --text-5xl:  48px;
+  --text-6xl:  60px;
+
+  --lh-tight:   1.15; /* @kind font */
+  --lh-snug:    1.30; /* @kind font */
+  --lh-normal:  1.50; /* @kind font */
+  --lh-relaxed: 1.65; /* @kind font */
+
+  --fw-normal:   400; /* @kind font */
+  --fw-medium:   500; /* @kind font */
+  --fw-semibold: 600; /* @kind font */
+  --fw-bold:     700; /* @kind font */
+  --fw-extra:    800; /* @kind font */
+
+  --tracking-tight:  -0.02em; /* @kind font */
+  --tracking-snug:   -0.01em; /* @kind font */
+  --tracking-normal: 0; /* @kind font */
+  --tracking-wide:   0.04em; /* @kind font */
+  --tracking-widest: 0.08em; /* @kind font */
+
+  /* ===========================================================================
+     SPACING (4-point base, 8-point harmony)
+     =========================================================================== */
+  --space-0:  0;
+  --space-1:  2px;
+  --space-2:  4px;
+  --space-3:  8px;
+  --space-4:  12px;
+  --space-5:  16px;
+  --space-6:  20px;
+  --space-7:  24px;
+  --space-8:  32px;
+  --space-9:  40px;
+  --space-10: 48px;
+  --space-11: 64px;
+  --space-12: 96px;
+
+  /* ===========================================================================
+     RADIUS
+     =========================================================================== */
+  --radius-none: 0;
+  --radius-xs:   2px;
+  --radius-sm:   4px;
+  --radius-md:   6px;
+  --radius-lg:   8px;
+  --radius-xl:   12px;
+  --radius-2xl:  16px;
+  --radius-3xl:  24px;
+  --radius-pill: 9999px;
+
+  /* ===========================================================================
+     SHADOWS (light theme defaults — dark overrides below)
+     =========================================================================== */
+  --shadow-xs: 0 1px 2px rgba(15, 23, 42, 0.05);
+  --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.08), 0 1px 2px rgba(15, 23, 42, 0.04);
+  --shadow-md: 0 4px 8px -2px rgba(15, 23, 42, 0.08), 0 2px 4px -1px rgba(15, 23, 42, 0.04);
+  --shadow-lg: 0 10px 24px -4px rgba(15, 23, 42, 0.12), 0 4px 8px -2px rgba(15, 23, 42, 0.06);
+  --shadow-xl: 0 20px 48px -8px rgba(15, 23, 42, 0.18), 0 8px 16px -4px rgba(15, 23, 42, 0.06);
+  --shadow-inner: inset 0 2px 4px rgba(15, 23, 42, 0.06);
+
+  /* ===========================================================================
+     MOTION
+     =========================================================================== */
+  --ease-linear:  linear; /* @kind other */
+  --ease-out:     cubic-bezier(0.2, 0.8, 0.2, 1); /* @kind other */
+  --ease-in:      cubic-bezier(0.4, 0, 1, 1); /* @kind other */
+  --ease-in-out:  cubic-bezier(0.4, 0, 0.2, 1); /* @kind other */
+  --ease-spring:  cubic-bezier(0.34, 1.56, 0.64, 1); /* @kind other */
+
+  --dur-instant: 80ms; /* @kind other */
+  --dur-fast:    150ms; /* @kind other */
+  --dur-base:    200ms; /* @kind other */
+  --dur-slow:    320ms; /* @kind other */
+  --dur-slower:  500ms; /* @kind other */
+
+  /* ===========================================================================
+     Z-INDEX scale (use semantically, never raw numbers)
+     =========================================================================== */
+  --z-base:    0; /* @kind other */
+  --z-raised:  10; /* @kind other */
+  --z-dropdown: 100; /* @kind other */
+  --z-sticky:   200; /* @kind other */
+  --z-overlay:  500; /* @kind other */
+  --z-modal:    600; /* @kind other */
+  --z-popover:  700; /* @kind other */
+  --z-toast:    800; /* @kind other */
+  --z-tooltip:  900; /* @kind other */
+}
+
+/* =============================================================================
+   SEMANTIC TOKENS — the layer you actually consume in components.
+   Theme by setting [data-theme="light"] (default) or [data-theme="dark"] on <html>.
+   ============================================================================= */
+/* ═══ Values mapped 1:1 from the canonical zeroheight export
+   "SASI Theme.SASI (Guaraci Light)" — see uploads/json-tokens-for-zeroheight.json.
+   Token role → Sumé primitive step is the source of truth; do not hand-tune. ═══ */
+:root,
+:root[data-theme="light"] {
+  /* Surfaces — surface-primary / -secondary / -tertiary */
+  --bg-app:       var(--neutral-50);    /* surface-primary  · gray-50  */
+  --bg-canvas:    var(--neutral-0);     /* surface-secondary· gray-10  */
+  --bg-surface:   var(--neutral-0);
+  --bg-raised:    var(--neutral-0);     /* cards over canvas */
+  --bg-overlay:   rgba(43, 48, 59, 0.55);
+  --bg-muted:     var(--neutral-100);   /* surface-tertiary · gray-100 */
+  --bg-subtle:    var(--neutral-50);
+  --bg-inverse:   var(--neutral-900);
+
+  /* Text — text-primary / -secondary / -tertiary / -disabled */
+  --fg-default:   var(--neutral-900);   /* body (system tier; canonical text-primary is gray-1000) */
+  --fg-strong:    var(--neutral-1000);  /* text-primary  · Pure Black */
+  --fg-muted:     var(--neutral-700);   /* text-secondary· gray-700 */
+  --fg-subtle:    var(--neutral-500);   /* text-tertiary · gray-500 */
+  --fg-disabled:  var(--neutral-200);   /* text-disabled · gray-200 */
+  --fg-inverse:   var(--neutral-0);     /* on dark fills */
+  --fg-on-brand:  var(--neutral-0);     /* fill/text-pure · White (dark brand fills carry light text) */
+  --fg-link:      var(--brand-600);     /* text-blue / text-primary-color · Primary-600 */
+  --fg-link-hover: var(--brand-700);
+
+  /* Borders — border-gray-subtle / border-gray / border-secondary / border-primary */
+  --border-subtle:  var(--neutral-100); /* border-gray-subtle · gray-100 */
+  --border-default: var(--neutral-500); /* border-gray        · gray-500 (visible, ~3.7:1) */
+  --border-strong:  var(--neutral-700); /* border-secondary   · gray-700 */
+  --border-inverse: var(--neutral-700);
+  --border-focus:   var(--brand-600);   /* border-primary     · Primary-600 */
+
+  /* Brand on-fills — bg-primary / -hover / -active, bg-tertiary-blue-hover */
+  --bg-brand:        var(--brand-600);
+  --bg-brand-hover:  var(--brand-700);
+  --bg-brand-active: var(--brand-800);
+  --bg-brand-subtle: var(--brand-50);
+  --fg-brand:        var(--brand-600);  /* text-primary-color · Primary-600 */
+
+  /* Status — fg-* = text-{positive|alert|error|blue}; bg-* = bg-{positive|warning|error}; subtle tints */
+  --fg-success:      var(--emerald-700);  /* text-positive · green-700 */
+  --bg-success:      var(--emerald-700);  /* bg-positive   · green-700 */
+  --bg-success-subtle: var(--emerald-50); /* green-50 */
+  --border-success:  var(--client-200);   /* border-positive · Teal-200 */
+
+  --fg-warning:      var(--amber-600);    /* text-alert · Yellow-600 */
+  --bg-warning:      var(--amber-600);    /* bg-warning · Yellow-600 */
+  --bg-warning-subtle: var(--amber-50);   /* Yellow-50 */
+  --border-warning:  var(--amber-200);
+
+  --fg-danger:       var(--rose-600);     /* text-error · Red-600 */
+  --bg-danger:       var(--rose-600);     /* bg-error   · Red-600 */
+  --bg-danger-subtle: var(--rose-50);     /* Red-50 */
+  --border-danger:   var(--rose-600);     /* border-error · Red-600 */
+
+  --fg-info:         var(--sky-600);      /* text-blue · Primary-600 */
+  --bg-info:         var(--sky-600);
+  --bg-info-subtle:  var(--sky-50);
+  --border-info:     var(--sky-200);      /* border-blue-subtle · Primary-200 */
+
+  /* Focus ring (use as outline or box-shadow) */
+  --ring-focus: 0 0 0 var(--ring-width) color-mix(in oklab, var(--brand-600) 35%, transparent);
+  --ring-danger: 0 0 0 var(--ring-width) color-mix(in oklab, var(--rose-500) 35%, transparent);
+}
+
+/* ----------------------------- DARK THEME ----------------------------- */
+/* ═══ Mapped 1:1 from canonical "SASI Theme.SASI (Jaci Dark)". In dark, the brand
+   fill is LIGHT (Primary-300) and carries DARK text; borders are bright (gray-400). ═══ */
+:root[data-theme="dark"] {
+  --bg-app:       var(--neutral-1000);  /* surface-secondary · gray-1000 */
+  --bg-canvas:    var(--neutral-900);   /* surface-primary   · gray-900  */
+  --bg-surface:   var(--neutral-900);
+  --bg-raised:    var(--neutral-800);   /* surface-tertiary  · gray-800  */
+  --bg-overlay:   rgba(0, 0, 0, 0.65);
+  --bg-muted:     var(--neutral-800);
+  --bg-subtle:    var(--neutral-800);   /* recessed/header/hover lifts off the surface */
+  --bg-inverse:   var(--neutral-50);
+
+  --fg-default:   var(--neutral-100);   /* body (system tier; canonical text-primary is White) */
+  --fg-strong:    var(--neutral-0);     /* text-primary  · White */
+  --fg-muted:     var(--neutral-200);   /* text-secondary· gray-200 */
+  --fg-subtle:    var(--neutral-400);   /* text-tertiary · gray-400 */
+  --fg-disabled:  var(--neutral-700);   /* text-disabled · gray-700 */
+  --fg-inverse:   var(--neutral-900);
+  --fg-on-brand:  var(--neutral-1000);  /* fill/icon-pure · Black — light brand fills carry dark text */
+  --fg-link:      var(--brand-300);     /* text-primary-color · Primary-300 */
+  --fg-link-hover: var(--brand-200);
+
+  --border-subtle:  var(--neutral-800); /* border-gray-subtle · gray-800 */
+  --border-default: var(--neutral-400); /* border-gray        · gray-400 (bright, clearly visible) */
+  --border-strong:  var(--neutral-200); /* border-secondary   · gray-200 */
+  --border-inverse: var(--neutral-200);
+  --border-focus:   var(--brand-300);   /* border-primary     · Primary-300 */
+
+  --bg-brand:        var(--brand-300);  /* bg-primary        · Primary-300 (light) */
+  --bg-brand-hover:  var(--brand-200);  /* bg-primary-hover  · Primary-200 */
+  --bg-brand-active: var(--brand-100);  /* bg-primary-active · Primary-100 */
+  --bg-brand-subtle: var(--brand-900);  /* bg-tertiary-blue-hover · Primary-900 */
+  --fg-brand:        var(--brand-300);  /* text-primary-color · Primary-300 */
+
+  --fg-success:      var(--emerald-200);  /* text-positive · green-200 */
+  --bg-success:      var(--emerald-200);  /* bg-positive   · green-200 */
+  --bg-success-subtle: var(--emerald-900);/* green-900 */
+  --border-success:  var(--client-700);   /* border-positive · Teal-700 */
+
+  --fg-warning:      var(--amber-300);    /* text-alert · Yellow-300 */
+  --bg-warning:      var(--amber-300);    /* bg-warning · Yellow-300 */
+  --bg-warning-subtle: var(--amber-900);  /* Yellow-900 */
+  --border-warning:  var(--amber-700);
+
+  --fg-danger:       var(--rose-300);     /* text-error · Red-300 */
+  --bg-danger:       var(--rose-300);     /* bg-error   · Red-300 (light) */
+  --bg-danger-subtle: var(--rose-900);    /* Red-900 */
+  --border-danger:   var(--rose-300);     /* border-error · Red-300 */
+
+  --fg-info:         var(--sky-300);      /* text-blue · Primary-300 */
+  --bg-info:         var(--sky-300);
+  --bg-info-subtle:  var(--sky-900);
+  --border-info:     var(--sky-700);      /* border-blue-subtle · Primary-700 */
+
+  /* On light status/brand fills in dark, labels must be dark */
+  --btn-danger-fg:   var(--neutral-1000);
+
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.5), 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 8px -2px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 10px 24px -4px rgba(0, 0, 0, 0.6);
+  --shadow-xl: 0 20px 48px -8px rgba(0, 0, 0, 0.7);
+
+  --ring-focus: 0 0 0 var(--ring-width) color-mix(in oklab, var(--brand-400) 45%, transparent);
+  --ring-danger: 0 0 0 var(--ring-width) color-mix(in oklab, var(--rose-400) 45%, transparent);
+}
+
+/* =============================================================================
+   BRAND / PRODUCT OVERRIDES — set [data-brand] (a.k.a. product) on :root to
+   repaint the brand-* scale. Mirrors the SASI codebase's [data-product].
+   ============================================================================= */
+:root[data-brand="sasi"]        { --brand-50:var(--sasi-indigo-50);--brand-100:var(--sasi-indigo-100);--brand-200:var(--sasi-indigo-200);--brand-300:var(--sasi-indigo-300);--brand-400:var(--sasi-indigo-400);--brand-500:var(--sasi-indigo-500);--brand-600:var(--sasi-indigo-600);--brand-700:var(--sasi-indigo-700);--brand-800:var(--sasi-indigo-800);--brand-900:var(--sasi-indigo-900);
+                                  --font-display: 'Circular Std', 'Inter', 'Nunito Sans', system-ui, sans-serif; }
+:root[data-brand="distributor"] { --brand-50:var(--distributor-50);--brand-100:var(--distributor-100);--brand-200:var(--distributor-200);--brand-300:var(--distributor-300);--brand-400:var(--distributor-400);--brand-500:var(--distributor-500);--brand-600:var(--distributor-600);--brand-700:var(--distributor-700);--brand-800:var(--distributor-800);--brand-900:var(--distributor-900); }
+:root[data-brand="client"]      { --brand-50:var(--client-50);--brand-100:var(--client-100);--brand-200:var(--client-200);--brand-300:var(--client-300);--brand-400:var(--client-400);--brand-500:var(--client-500);--brand-600:var(--client-600);--brand-700:var(--client-700);--brand-800:var(--client-800);--brand-900:var(--client-900); }
+
+/* Hue-named themes — the canonical white-label set (12 total). The legacy
+   sasi/distributor/client keys above remain as aliases for blue/violet/teal. */
+:root[data-brand="blue"]    { --brand-50:var(--sasi-50);--brand-100:var(--sasi-100);--brand-200:var(--sasi-200);--brand-300:var(--sasi-300);--brand-400:var(--sasi-400);--brand-500:var(--sasi-500);--brand-600:var(--sasi-600);--brand-700:var(--sasi-700);--brand-800:var(--sasi-800);--brand-900:var(--sasi-900); }
+:root[data-brand="indigo"]  { --brand-50:var(--indigo-50);--brand-100:var(--indigo-100);--brand-200:var(--indigo-200);--brand-300:var(--indigo-300);--brand-400:var(--indigo-400);--brand-500:var(--indigo-500);--brand-600:var(--indigo-600);--brand-700:var(--indigo-700);--brand-800:var(--indigo-800);--brand-900:var(--indigo-900); }
+:root[data-brand="violet"]  { --brand-50:var(--distributor-50);--brand-100:var(--distributor-100);--brand-200:var(--distributor-200);--brand-300:var(--distributor-300);--brand-400:var(--distributor-400);--brand-500:var(--distributor-500);--brand-600:var(--distributor-600);--brand-700:var(--distributor-700);--brand-800:var(--distributor-800);--brand-900:var(--distributor-900); }
+:root[data-brand="fuchsia"] { --brand-50:var(--fuchsia-50);--brand-100:var(--fuchsia-100);--brand-200:var(--fuchsia-200);--brand-300:var(--fuchsia-300);--brand-400:var(--fuchsia-400);--brand-500:var(--fuchsia-500);--brand-600:var(--fuchsia-600);--brand-700:var(--fuchsia-700);--brand-800:var(--fuchsia-800);--brand-900:var(--fuchsia-900); }
+:root[data-brand="pink"]    { --brand-50:var(--pink-50);--brand-100:var(--pink-100);--brand-200:var(--pink-200);--brand-300:var(--pink-300);--brand-400:var(--pink-400);--brand-500:var(--pink-500);--brand-600:var(--pink-600);--brand-700:var(--pink-700);--brand-800:var(--pink-800);--brand-900:var(--pink-900); }
+:root[data-brand="rose"]    { --brand-50:var(--rose-br-50);--brand-100:var(--rose-br-100);--brand-200:var(--rose-br-200);--brand-300:var(--rose-br-300);--brand-400:var(--rose-br-400);--brand-500:var(--rose-br-500);--brand-600:var(--rose-br-600);--brand-700:var(--rose-br-700);--brand-800:var(--rose-br-800);--brand-900:var(--rose-br-900); }
+:root[data-brand="red"]     { --brand-50:var(--red-br-50);--brand-100:var(--red-br-100);--brand-200:var(--red-br-200);--brand-300:var(--red-br-300);--brand-400:var(--red-br-400);--brand-500:var(--red-br-500);--brand-600:var(--red-br-600);--brand-700:var(--red-br-700);--brand-800:var(--red-br-800);--brand-900:var(--red-br-900); }
+:root[data-brand="orange"]  { --brand-50:var(--orange-50);--brand-100:var(--orange-100);--brand-200:var(--orange-200);--brand-300:var(--orange-300);--brand-400:var(--orange-400);--brand-500:var(--orange-500);--brand-600:var(--orange-600);--brand-700:var(--orange-700);--brand-800:var(--orange-800);--brand-900:var(--orange-900); }
+:root[data-brand="amber"]   { --brand-50:var(--amber-br-50);--brand-100:var(--amber-br-100);--brand-200:var(--amber-br-200);--brand-300:var(--amber-br-300);--brand-400:var(--amber-br-400);--brand-500:var(--amber-br-500);--brand-600:var(--amber-br-600);--brand-700:var(--amber-br-700);--brand-800:var(--amber-br-800);--brand-900:var(--amber-br-900); }
+:root[data-brand="emerald"] { --brand-50:var(--emerald-br-50);--brand-100:var(--emerald-br-100);--brand-200:var(--emerald-br-200);--brand-300:var(--emerald-br-300);--brand-400:var(--emerald-br-400);--brand-500:var(--emerald-br-500);--brand-600:var(--emerald-br-600);--brand-700:var(--emerald-br-700);--brand-800:var(--emerald-br-800);--brand-900:var(--emerald-br-900); }
+:root[data-brand="teal"]    { --brand-50:var(--client-50);--brand-100:var(--client-100);--brand-200:var(--client-200);--brand-300:var(--client-300);--brand-400:var(--client-400);--brand-500:var(--client-500);--brand-600:var(--client-600);--brand-700:var(--client-700);--brand-800:var(--client-800);--brand-900:var(--client-900); }
+:root[data-brand="cyan"]    { --brand-50:var(--cyan-50);--brand-100:var(--cyan-100);--brand-200:var(--cyan-200);--brand-300:var(--cyan-300);--brand-400:var(--cyan-400);--brand-500:var(--cyan-500);--brand-600:var(--cyan-600);--brand-700:var(--cyan-700);--brand-800:var(--cyan-800);--brand-900:var(--cyan-900); }
+
+/* RTL / Arabic locale — when [dir="rtl"] is set, the UI + display families swap
+   to Noto Sans Arabic (a 1:1 metric-compatible swap for Inter). Directional
+   primitives in Small.jsx (Direction / useDirection) flip layout; this only
+   handles the type. Symbolic icons stay; directional icons flip in component code. */
+[dir="rtl"] {
+  --font-sans:    'Noto Sans Arabic', 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-display: 'Noto Sans Arabic', 'Inter', system-ui, sans-serif;
+}
+
+/* =============================================================================
+   BASE
+   ============================================================================= */
+*, *::before, *::after { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  background: var(--bg-app);
+  color: var(--fg-default);
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  line-height: var(--lh-normal);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background-color var(--dur-base) var(--ease-out), color var(--dur-base) var(--ease-out);
+}
+
+/* Semantic type classes — generic, not tied to any product */
+.t-display { font-size: var(--text-6xl); font-weight: var(--fw-bold);     line-height: var(--lh-tight);  letter-spacing: var(--tracking-tight); color: var(--fg-strong); }
+.t-h1      { font-size: var(--text-5xl); font-weight: var(--fw-bold);     line-height: var(--lh-tight);  letter-spacing: var(--tracking-tight); color: var(--fg-strong); }
+.t-h2      { font-size: var(--text-4xl); font-weight: var(--fw-bold);     line-height: var(--lh-tight);  letter-spacing: var(--tracking-snug);  color: var(--fg-strong); }
+.t-h3      { font-size: var(--text-3xl); font-weight: var(--fw-semibold); line-height: var(--lh-snug);   letter-spacing: var(--tracking-snug);  color: var(--fg-strong); }
+.t-h4      { font-size: var(--text-2xl); font-weight: var(--fw-semibold); line-height: var(--lh-snug);   color: var(--fg-strong); }
+.t-h5      { font-size: var(--text-xl);  font-weight: var(--fw-semibold); line-height: var(--lh-snug);   color: var(--fg-strong); }
+.t-h6      { font-size: var(--text-lg);  font-weight: var(--fw-semibold); line-height: var(--lh-snug);   color: var(--fg-strong); }
+.t-body-lg { font-size: var(--text-lg);  font-weight: var(--fw-normal);   line-height: var(--lh-relaxed); }
+.t-body    { font-size: var(--text-base);font-weight: var(--fw-normal);   line-height: var(--lh-normal); }
+.t-body-sm { font-size: var(--text-sm);  font-weight: var(--fw-normal);   line-height: var(--lh-normal); }
+.t-caption { font-size: var(--text-xs);  font-weight: var(--fw-normal);   line-height: var(--lh-normal); color: var(--fg-muted); }
+.t-label   { font-size: var(--text-sm);  font-weight: var(--fw-medium);   line-height: var(--lh-snug); }
+.t-overline { font-size: var(--text-xs); font-weight: var(--fw-semibold); letter-spacing: var(--tracking-widest); text-transform: uppercase; color: var(--fg-muted); }
+.t-mono    { font-family: var(--font-mono); font-size: 0.95em; }
+
+a       { color: var(--fg-link); text-decoration: none; transition: color var(--dur-fast) var(--ease-out); }
+a:hover { color: var(--fg-link-hover); text-decoration: underline; }
+a:focus-visible { outline: none; box-shadow: var(--ring-focus); border-radius: var(--radius-xs); }
+
+::selection { background: var(--brand-200); color: var(--brand-900); }
+:root[data-theme="dark"] ::selection { background: color-mix(in oklab, var(--brand-400) 50%, transparent); color: var(--neutral-0); }
+
+/* =============================================================================
+   STYLE PRESETS — set [data-style] on :root to swap fonts, radii, shadows,
+   control density, border treatment, motion, and neutral tint.
+   Orthogonal to data-theme (light/dark) and data-brand.
+
+   standard    — Inter, balanced everything. Modern web baseline. (default)
+   enterprise  — IBM Plex Sans. Tight density, snappy motion, hairline borders.
+   friendly    — DM Sans. Generous density, soft diffuse shadows, warm neutrals.
+   refined     — Geist. Composed density, almost-no elevation, low-contrast borders.
+   data-dense  — Inter tabular. Very tight density, instant motion, no shadows.
+   ============================================================================= */
+
+/* ----------------------------- STANDARD ----------------------------- */
+/* Inter, neutral density, soft shadows. Opt-in via data-style="standard". */
+:root,
+[data-style="standard"] {
+  --font-sans:    'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-display: var(--font-sans);
+  --font-mono:    'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+}
+
+/* ----------------------------- ENTERPRISE ----------------------------- */
+[data-style="enterprise"] {
+  --font-sans:    'IBM Plex Sans', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-display: var(--font-sans);
+  --font-mono:    'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+
+  /* Tighter radii — engineered, not playful */
+  --radius-xs:   1px;  --radius-sm:   2px;  --radius-md:   3px;
+  --radius-lg:   4px;  --radius-xl:   6px;  --radius-2xl:  8px;  --radius-3xl: 12px;
+
+  /* Tighter density — controls one notch smaller */
+  --ctl-h-xs:    24px;
+  --ctl-h-sm:    28px;
+  --ctl-h-md:    32px;
+  --ctl-h-lg:    38px;
+  --ctl-px-sm:   10px;
+  --ctl-px-md:   12px;
+  --ctl-px-lg:   16px;
+  --ctl-fs-sm:   12.5px;
+  --ctl-fs-md:   13px;
+  --ctl-fs-lg:   14px;
+  --ctl-fw:      500; /* @kind font */
+
+  /* Card density */
+  --card-pad:    16px;
+  --card-bw:     1px;
+  --card-shadow: none;          /* elevation is communicated by borders, not shadow */
+
+  /* Hairline elevation — borders carry weight */
+  --shadow-xs: 0 0 0 1px rgba(15, 23, 42, 0.06);
+  --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.06), 0 0 0 1px rgba(15, 23, 42, 0.05);
+  --shadow-md: 0 2px 4px rgba(15, 23, 42, 0.06), 0 0 0 1px rgba(15, 23, 42, 0.06);
+  --shadow-lg: 0 4px 12px rgba(15, 23, 42, 0.08), 0 0 0 1px rgba(15, 23, 42, 0.05);
+  --shadow-xl: 0 8px 24px rgba(15, 23, 42, 0.10), 0 0 0 1px rgba(15, 23, 42, 0.05);
+
+  /* Stronger border palette — visible structure */
+  --border-subtle:  var(--neutral-200);
+  --border-default: var(--neutral-400);
+  --border-strong:  var(--neutral-500);
+
+  /* Snappy motion — no time for ceremony */
+  --dur-fast:    80ms; /* @kind other */
+  --dur-base:    120ms; /* @kind other */
+  --dur-slow:    180ms; /* @kind other */
+  --dur-default: 120ms; /* @kind other */
+  --ease-default: var(--ease-out); /* @kind other */
+
+  /* Sharp focus — 2px, no soft glow */
+  --ring-width:  2px;
+
+  /* Buttons & inputs flat */
+  --button-shadow:       none;
+  --button-shadow-hover: none;
+  --input-shadow:        none;
+
+  /* Tracking — Plex Sans benefits from a touch of negative tracking */
+  --tracking-tight:  -0.015em; /* @kind font */
+  --tracking-snug:   -0.005em; /* @kind font */
+
+  /* Links always underlined — formal, scannable */
+  --link-decoration: underline; /* @kind other */
+
+  /* Slightly cooler/bluer surfaces */
+  --bg-app:     #F4F6FA;
+  --bg-muted:   #ECEFF5;
+}
+[data-style="enterprise"][data-theme="dark"] {
+  --bg-app:     #050B17;
+  --bg-canvas:  #0E1626;
+  --bg-surface: #0E1626;
+  --bg-raised:  #1A2438;
+  --bg-muted:   #1A2438;
+  --bg-subtle:  #15203A;        /* lift off surface so headers/hover read */
+  --border-subtle:  #2A3650;
+  --border-default: #556B96;    /* borders ARE elevation here — must clear ~3:1 */
+  --border-strong:  #6E84AE;
+  --fg-muted:   #A8B2C5;        /* a touch brighter on slate bg — better readability */
+  --shadow-xs: 0 0 0 1px rgba(255, 255, 255, 0.06);
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.06);
+  --shadow-md: 0 2px 4px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.06);
+  --shadow-lg: 0 4px 12px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.06);
+  --shadow-xl: 0 8px 24px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255, 255, 255, 0.06);
+}
+
+/* ----------------------------- FRIENDLY ----------------------------- */
+[data-style="friendly"] {
+  --font-sans:    'DM Sans', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-display: var(--font-sans);
+  --font-mono:    'DM Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+
+  /* Big, generous radii */
+  --radius-xs:   4px;  --radius-sm:   8px;  --radius-md:   12px;
+  --radius-lg:   16px; --radius-xl:   20px; --radius-2xl: 24px; --radius-3xl: 32px;
+
+  /* Generous density — bigger touch targets, more breathing room */
+  --ctl-h-xs:    30px;
+  --ctl-h-sm:    36px;
+  --ctl-h-md:    44px;
+  --ctl-h-lg:    52px;
+  --ctl-px-sm:   14px;
+  --ctl-px-md:   20px;
+  --ctl-px-lg:   24px;
+  --ctl-fs-sm:   13.5px;
+  --ctl-fs-md:   14.5px;
+  --ctl-fs-lg:   16px;
+  --ctl-gap-md:  10px;
+  --ctl-fw:      600; /* @kind font */            /* DM Sans needs more weight at UI sizes */
+
+  /* Cards: no border, generous padding, soft elevation */
+  --card-pad:    24px;
+  --card-bw:     0px;
+  --card-shadow: 0 4px 16px -4px rgba(15, 23, 42, 0.08), 0 2px 4px rgba(15, 23, 42, 0.04);
+
+  /* Soft, diffuse shadows */
+  --shadow-xs: 0 1px 2px rgba(15, 23, 42, 0.04);
+  --shadow-sm: 0 2px 8px rgba(15, 23, 42, 0.06), 0 1px 3px rgba(15, 23, 42, 0.04);
+  --shadow-md: 0 8px 24px -4px rgba(15, 23, 42, 0.10), 0 4px 8px -2px rgba(15, 23, 42, 0.05);
+  --shadow-lg: 0 16px 40px -8px rgba(15, 23, 42, 0.14), 0 8px 16px -4px rgba(15, 23, 42, 0.07);
+  --shadow-xl: 0 28px 60px -12px rgba(15, 23, 42, 0.20), 0 12px 24px -4px rgba(15, 23, 42, 0.09);
+
+  /* Buttons get a subtle resting lift */
+  --button-shadow:       0 1px 2px rgba(15, 23, 42, 0.05);
+  --button-shadow-hover: 0 4px 10px -2px rgba(15, 23, 42, 0.12);
+
+  /* Gentle motion — slight spring */
+  --dur-fast:    200ms; /* @kind other */
+  --dur-base:    280ms; /* @kind other */
+  --dur-slow:    420ms; /* @kind other */
+  --dur-default: 280ms; /* @kind other */
+  --ease-default: var(--ease-spring); /* @kind other */
+
+  /* Soft, large focus ring */
+  --ring-width:  4px;
+
+  /* Warm beige neutrals (light) */
+  --bg-app:     #FAF7F2;
+  --bg-canvas:  #FFFDF9;
+  --bg-surface: #FFFDF9;
+  --bg-raised:  #FFFDF9;
+  --bg-muted:   #F2EDE3;
+  --bg-subtle:  #FAF7F2;
+  --border-subtle:  #ECE5D7;
+  --border-default: #DDD3BE;
+  --border-strong:  #B8AB91;
+  --fg-default: #2A2520;
+  --fg-strong:  #1A1611;
+  --fg-muted:   #6B6452;
+
+  /* Headings feel a touch heavier in DM Sans */
+  --fw-bold:    700; /* @kind font */
+}
+[data-style="friendly"][data-theme="dark"] {
+  --bg-app:     #1A1715;
+  --bg-canvas:  #221E1B;
+  --bg-surface: #221E1B;
+  --bg-raised:  #2A2522;
+  --bg-muted:   #2A2522;
+  --bg-subtle:  #2A2521;        /* lift off surface so headers/hover read */
+  --border-subtle:  #322C28;
+  --border-default: #6A5F52;
+  --border-strong:  #897C6B;
+  --fg-default: #F2EEE6;
+  --fg-strong:  #FFFEFB;
+  --fg-muted:   #B8B0A2;
+  --fg-subtle:  #9A9284;        /* was #8A8377 — under AA on raised */
+  /* All shadows recomputed for warm-dark surfaces */
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.35);
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.4), 0 1px 3px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 8px 24px -4px rgba(0, 0, 0, 0.5), 0 4px 8px -2px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 16px 40px -8px rgba(0, 0, 0, 0.55), 0 8px 16px -4px rgba(0, 0, 0, 0.35);
+  --shadow-xl: 0 28px 60px -12px rgba(0, 0, 0, 0.7), 0 12px 24px -4px rgba(0, 0, 0, 0.4);
+  --card-shadow:         0 4px 16px -4px rgba(0, 0, 0, 0.5), 0 2px 4px rgba(0, 0, 0, 0.25);
+  --button-shadow:       0 1px 2px rgba(0, 0, 0, 0.4);
+  --button-shadow-hover: 0 4px 10px -2px rgba(0, 0, 0, 0.6);
+}
+
+/* ----------------------------- REFINED (default) ----------------------------- */
+/* Geist, composed density, almost-no elevation, low-contrast "subtle" strokes,
+   smooth desaturated surfaces. This is the design-system DEFAULT (set via
+   data-style="refined" on <html>). */
+[data-style="refined"] {
+  --font-sans:    'Geist', 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-display: var(--font-sans);
+  --font-mono:    'Geist Mono', 'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+
+  /* Subtle radii — composed, never loud */
+  --radius-xs:   2px;  --radius-sm:   3px;  --radius-md:   4px;
+  --radius-lg:   6px;  --radius-xl:   10px; --radius-2xl: 14px; --radius-3xl: 20px;
+
+  /* Composed density — a touch tighter than standard */
+  --ctl-h-xs:    24px;
+  --ctl-h-sm:    30px;
+  --ctl-h-md:    36px;
+  --ctl-h-lg:    44px;
+  --ctl-px-sm:   11px;
+  --ctl-px-md:   14px;
+  --ctl-px-lg:   18px;
+  --ctl-fs-md:   13.5px;
+  --ctl-fw:      500; /* @kind font */
+
+  /* Cards: minimal visible chrome */
+  --card-pad:    20px;
+  --card-bw:     1px;
+  --card-shadow: 0 0 0 1px rgba(15, 23, 42, 0.04), 0 1px 2px rgba(15, 23, 42, 0.04);
+
+  /* Very low elevation — restraint */
+  --shadow-xs: 0 0 0 1px rgba(15, 23, 42, 0.04);
+  --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.04), 0 0 0 1px rgba(15, 23, 42, 0.04);
+  --shadow-md: 0 2px 6px rgba(15, 23, 42, 0.05), 0 0 0 1px rgba(15, 23, 42, 0.04);
+  --shadow-lg: 0 6px 18px rgba(15, 23, 42, 0.08), 0 0 0 1px rgba(15, 23, 42, 0.05);
+  --shadow-xl: 0 14px 40px rgba(15, 23, 42, 0.12), 0 0 0 1px rgba(15, 23, 42, 0.06);
+
+  /* Inputs almost ghost — background contrast carries them */
+  --input-shadow:  none;
+  --input-bw:      1px;
+
+  /* Buttons flat — no resting elevation */
+  --button-shadow:       none;
+  --button-shadow-hover: none;
+
+  /* Composed motion — measured, not snappy */
+  --dur-fast:    160ms; /* @kind other */
+  --dur-base:    240ms; /* @kind other */
+  --dur-slow:    360ms; /* @kind other */
+  --dur-default: 240ms; /* @kind other */
+  --ease-default: var(--ease-in-out); /* @kind other */
+
+  /* Tight focus — precise, not soft */
+  --ring-width:  2px;
+
+  /* Lower-chroma neutrals — slight desaturation */
+  --bg-app:     #FAFAFA;
+  --bg-canvas:  #FFFFFF;
+  --bg-surface: #FFFFFF;
+  --bg-raised:  #FFFFFF;
+  --bg-muted:   #F4F4F5;
+  --bg-subtle:  #FAFAFA;
+  --border-subtle:  #E8E8EA;
+  --border-default: #D4D4D8;
+  --border-strong:  #A1A1AA;
+  --fg-default: #18181B;
+  --fg-strong:  #09090B;
+  --fg-muted:   #52525B;
+  --fg-subtle:  #71717A;
+
+  /* Geist is sharper with a hair more negative tracking */
+  --tracking-tight:  -0.025em; /* @kind font */
+  --tracking-snug:   -0.015em; /* @kind font */
+}
+[data-style="refined"][data-theme="dark"] {
+  --bg-app:     #09090B;
+  --bg-canvas:  #18181B;
+  --bg-surface: #18181B;
+  --bg-raised:  #1F1F23;
+  --bg-muted:   #27272A;
+  --bg-subtle:  #1F1F22;        /* lift off surface so headers/hover read */
+  --border-subtle:  #2A2A2E;
+  --border-default: #5A5A63;    /* refined keeps borders soft by design \u2014 nudged up for legibility */
+  --border-strong:  #6E6E77;
+  --fg-default: #FAFAFA;
+  --fg-strong:  #FFFFFF;
+  --fg-muted:   #A1A1AA;
+  --fg-subtle:  #8B8B93;        /* was #71717A — 3.4:1 on canvas */
+  /* Refined-dark shadows — still restrained, but visible on dark surfaces */
+  --shadow-xs: 0 0 0 1px rgba(255, 255, 255, 0.05);
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.05);
+  --shadow-md: 0 2px 6px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(255, 255, 255, 0.05);
+  --shadow-lg: 0 6px 18px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(255, 255, 255, 0.05);
+  --shadow-xl: 0 14px 40px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255, 255, 255, 0.06);
+  --card-shadow: 0 0 0 1px rgba(255, 255, 255, 0.05), 0 1px 2px rgba(0, 0, 0, 0.4);
+}
+
+/* ----------------------------- DATA-DENSE ----------------------------- */
+[data-style="data-dense"] {
+  --font-sans:    'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-display: var(--font-sans);
+  --font-mono:    'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+
+  /* Crisp, slightly tighter than Standard */
+  --radius-xs:   2px;  --radius-sm:   3px;  --radius-md:   4px;
+  --radius-lg:   6px;  --radius-xl:   8px;
+
+  /* Very tight density — packed UI */
+  --ctl-h-xs:    20px;
+  --ctl-h-sm:    24px;
+  --ctl-h-md:    28px;
+  --ctl-h-lg:    34px;
+  --ctl-px-xs:   6px;
+  --ctl-px-sm:   8px;
+  --ctl-px-md:   10px;
+  --ctl-px-lg:   14px;
+  --ctl-fs-xs:   11px;
+  --ctl-fs-sm:   12px;
+  --ctl-fs-md:   12.5px;
+  --ctl-fs-lg:   14px;
+  --ctl-ic-md:   14px;
+  --ctl-gap-md:  6px;
+
+  /* Compact type rhythm */
+  --text-xs:   11px;  --text-sm:   12.5px;  --text-base: 13px;
+  --text-lg:   15px;  --text-xl:   17px;    --text-2xl:  20px;
+  --text-3xl:  26px;  --text-4xl:  32px;
+  --lh-normal: 1.42; /* @kind font */ --lh-snug:   1.22; /* @kind font */
+
+  /* Cards: tight, hairline borders, no shadow */
+  --card-pad:    12px;
+  --card-bw:     1px;
+  --card-shadow: none;
+
+  /* Minimal shadows — density carries hierarchy */
+  --shadow-xs: 0 0 0 1px rgba(15, 23, 42, 0.05);
+  --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.04), 0 0 0 1px rgba(15, 23, 42, 0.05);
+  --shadow-md: 0 2px 4px rgba(15, 23, 42, 0.06), 0 0 0 1px rgba(15, 23, 42, 0.05);
+  --shadow-lg: 0 4px 10px rgba(15, 23, 42, 0.08), 0 0 0 1px rgba(15, 23, 42, 0.05);
+  --shadow-xl: 0 8px 20px rgba(15, 23, 42, 0.10), 0 0 0 1px rgba(15, 23, 42, 0.05);
+
+  /* Flat buttons and inputs — borders carry it */
+  --button-shadow:       none;
+  --button-shadow-hover: none;
+  --input-shadow:        none;
+
+  /* Stronger borders so structure is visible at compact size */
+  --border-subtle:  var(--neutral-200);
+  --border-default: var(--neutral-400);
+  --border-strong:  var(--neutral-500);
+
+  /* Instant motion — power users don't wait */
+  --dur-fast:    60ms; /* @kind other */
+  --dur-base:    100ms; /* @kind other */
+  --dur-slow:    160ms; /* @kind other */
+  --dur-default: 100ms; /* @kind other */
+  --ease-default: var(--ease-out); /* @kind other */
+
+  /* Tight focus */
+  --ring-width:  2px;
+
+  /* Tabular numerals everywhere — critical for data alignment */
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: 'tnum' 1, 'cv11' 1;
+}
+[data-style="data-dense"][data-theme="dark"] {
+  --shadow-xs: 0 0 0 1px rgba(255, 255, 255, 0.05);
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.05);
+  --shadow-md: 0 2px 4px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.05);
+  --shadow-lg: 0 4px 10px rgba(0, 0, 0, 0.6), 0 0 0 1px rgba(255, 255, 255, 0.05);
+  --shadow-xl: 0 8px 20px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255, 255, 255, 0.05);
+}
+
+/* =============================================================================
+   COMPONENT TOKEN LAYER
+   ─────────────────────────────────────────────────────────────────────────
+   Component-scoped semantics, modelled on the production "Sumé" (zeroheight)
+   token set. Every value DERIVES from the role-semantic layer above (or an
+   alpha tint of it), so all of this adapts automatically across the 12 brands,
+   light/dark themes, and 5 style presets — no per-theme duplication needed.
+
+   Interaction tints follow Sumé's convention: subtle hover/active states are
+   an alpha wash of brand (selected/primary affordances) or of --fg-default
+   (neutral affordances). Because --fg-default flips with the theme, a dark-ink
+   wash in light mode becomes a white wash in dark mode for free.
+   ============================================================================= */
+:root {
+  /* ---- interaction wash primitives (reused below) ---- */
+  --wash-brand-weak:    color-mix(in oklab, var(--brand-500) 8%,  transparent);
+  --wash-brand-medium:  color-mix(in oklab, var(--brand-500) 14%, transparent);
+  --wash-brand-strong:  color-mix(in oklab, var(--brand-500) 22%, transparent);
+  --wash-ink-weak:      color-mix(in oklab, var(--fg-default) 4%,  transparent);
+  --wash-ink-medium:    color-mix(in oklab, var(--fg-default) 8%,  transparent);
+  --wash-ink-strong:    color-mix(in oklab, var(--fg-default) 16%, transparent);
+
+  /* ---- PAGE / SHELL ---- */
+  --page-bg:            var(--bg-app);
+  --page-content-bg:    var(--bg-canvas);
+
+  /* ---- SIDEBAR ---- */
+  --sidebar-bg:             var(--bg-canvas);
+  --sidebar-item-hover:     var(--wash-brand-weak);
+  --sidebar-item-active:    var(--bg-brand-subtle);
+  --sidebar-rail:           var(--border-subtle);
+  --sidebar-rail-active:    var(--bg-brand);
+  --sidebar-fg:             var(--fg-muted);
+  --sidebar-fg-active:      var(--fg-strong);
+  --sidebar-fg-gray:        var(--fg-subtle);
+  --sidebar-fg-header:      var(--fg-strong);
+
+  /* ---- TABS (horizontal + vertical) ---- */
+  --tab-fg:                 var(--fg-muted);
+  --tab-fg-selected:        var(--fg-strong);
+  --tab-fg-disabled:        var(--fg-disabled);
+  --tab-bg-hover:           var(--wash-brand-weak);
+  --tab-bg-selected:        var(--wash-brand-medium);
+  --tab-border-selected:    var(--bg-brand);
+
+  /* ---- BUTTONS ---- */
+  /* primary (brand) */
+  --btn-primary-bg:         var(--bg-brand);
+  --btn-primary-bg-hover:   var(--bg-brand-hover);
+  --btn-primary-bg-active:  var(--bg-brand-active);
+  --btn-primary-fg:         var(--fg-on-brand);
+  /* danger (solid) */
+  --btn-danger-bg:          var(--bg-danger);
+  --btn-danger-bg-hover:    color-mix(in oklab, var(--bg-danger) 82%, black);
+  --btn-danger-bg-active:   color-mix(in oklab, var(--bg-danger) 68%, black);
+  --btn-danger-fg:          var(--neutral-0);
+  /* disabled (any variant) */
+  --btn-disabled-bg:        var(--bg-muted);
+  --btn-disabled-fg:        var(--fg-disabled);
+  /* tertiary / ghost — neutral */
+  --btn-ghost-hover:        var(--wash-ink-weak);
+  --btn-ghost-active:       var(--wash-ink-medium);
+  /* tertiary / ghost — brand */
+  --btn-ghost-brand-hover:  var(--wash-brand-weak);
+  --btn-ghost-brand-active: var(--wash-brand-medium);
+  /* tertiary / ghost — error */
+  --btn-ghost-danger-hover:  var(--bg-danger-subtle);
+  --btn-ghost-danger-active: color-mix(in oklab, var(--bg-danger) 18%, transparent);
+
+  /* ---- INPUTS ---- */
+  --input-bg:           var(--bg-surface);
+  --input-bg-active:    var(--wash-ink-weak);
+  --input-bg-disabled:  var(--bg-muted);
+  --input-bg-error:     var(--bg-danger-subtle);
+  --input-bg-success:   var(--bg-success-subtle);   /* NEW — positive field state */
+  --input-border:           var(--border-default);
+  --input-border-hover:     var(--border-strong);
+  --input-border-active:    var(--border-focus);
+  --input-border-error:     var(--border-danger);
+  --input-border-success:   var(--border-success);
+  --input-fg-placeholder:   var(--fg-subtle);
+
+  /* ---- TABLE ---- */
+  --table-header-bg:    var(--bg-subtle);
+  --table-footer-bg:    var(--bg-subtle);
+  --table-row-bg:       transparent;
+  --table-row-stripe:   color-mix(in oklab, var(--fg-default) 2.5%, transparent);  /* zebra */
+  --table-row-hover:    var(--bg-subtle);
+  --table-row-selected: var(--bg-brand-subtle);
+  --table-border:       var(--border-subtle);
+
+  /* ---- CARD ---- */
+  --card-bg:            var(--bg-surface);
+  --card-bg-tint:       var(--wash-brand-weak);     /* translucent card variant */
+  --card-bg-hover:      var(--wash-brand-medium);
+  --card-border:        var(--border-subtle);
+
+  /* ---- POPOVER / DROPDOWN / MENU ---- */
+  --popover-bg:          var(--bg-surface);
+  --popover-item-hover:  var(--wash-ink-weak);
+  --popover-item-active: var(--bg-brand-subtle);
+  --popover-border:      var(--border-subtle);
+
+  /* ---- DIALOG / MODAL ---- */
+  --dialog-bg:          var(--bg-surface);
+  --dialog-backdrop:    var(--bg-overlay);
+
+  /* ---- FLYOUT / SHEET / DRAWER ---- */
+  --flyout-header-bg:   var(--bg-canvas);
+  --flyout-content-bg:  var(--bg-subtle);
+  --flyout-border:      var(--border-subtle);
+
+  /* ---- TOAST ---- */
+  --toast-bg:               var(--bg-inverse);
+  --toast-fg:               var(--fg-inverse);
+  --toast-success-bg:       var(--bg-success);
+  --toast-success-subtle:   var(--bg-success-subtle);
+  --toast-warning-bg:       var(--bg-warning);
+  --toast-warning-subtle:   var(--bg-warning-subtle);
+  --toast-danger-bg:        var(--bg-danger);
+  --toast-danger-subtle:    var(--bg-danger-subtle);
+
+  /* ---- CHIP ---- */
+  --chip-bg:            var(--wash-ink-medium);
+  --chip-bg-brand:      var(--bg-brand-subtle);
+
+  /* ---- TOOLTIP ---- */
+  --tooltip-bg:           var(--bg-inverse);
+  --tooltip-fg:           var(--fg-inverse);
+  --tooltip-shortcut-bg:  color-mix(in oklab, var(--fg-inverse) 16%, transparent);
+
+  /* ---- SCROLLBAR ---- */
+  --scroll-thumb:         var(--wash-ink-strong);
+  --scroll-thumb-hover:   color-mix(in oklab, var(--fg-default) 24%, transparent);
+  --scroll-track:         var(--wash-ink-weak);
+
+  /* ---- DRAG & DROP ---- */
+  --dnd-bg:               var(--bg-canvas);
+  --dnd-bg-hover:         var(--bg-brand-subtle);
+  --dnd-border:           var(--border-default);
+  --dnd-border-active:    var(--bg-brand);
+
+  /* ---- ICON FILLS — parity set mirroring text colors ---- */
+  --fill-default:       var(--fg-default);
+  --fill-strong:        var(--fg-strong);
+  --fill-muted:         var(--fg-muted);
+  --fill-subtle:        var(--fg-subtle);
+  --fill-disabled:      var(--fg-disabled);
+  --fill-on-brand:      var(--fg-on-brand);
+  --fill-brand:         var(--fg-brand);
+  --fill-link:          var(--fg-link);
+  --fill-success:       var(--fg-success);
+  --fill-warning:       var(--fg-warning);
+  --fill-danger:        var(--fg-danger);
+  --fill-info:          var(--fg-info);
+
+  /* ---- LOGO ---- */
+  --logo-fg:            var(--fg-strong);
+  --logo-accent:        var(--bg-danger);   /* SASI mark red */
+}
+
+/* A couple of component tokens want a wider gap from their surface in DARK so
+   washes don't disappear on near-black. Bump the neutral washes only. */
+:root[data-theme="dark"] {
+  --wash-ink-weak:    color-mix(in oklab, var(--fg-default) 6%,  transparent);
+  --wash-ink-medium:  color-mix(in oklab, var(--fg-default) 10%, transparent);
+  --wash-ink-strong:  color-mix(in oklab, var(--fg-default) 20%, transparent);
+  --table-row-stripe: color-mix(in oklab, var(--fg-default) 4%,  transparent);
+}
+
+/* =============================================================================
+   CONTRAST MODES — set [data-contrast] on :root (or any subtree) to retune the
+   separation between text, borders and surfaces.
+     (default)               contrast-proof — WCAG-AA reliable baseline
+     [data-contrast=smooth]  delicate — softened ink, hairline borders, gentle motion
+     [data-contrast=high]    maximum — near-pure ink, strong borders, crisp surfaces
+   Each mode is defined for both light and dark themes.
+   ============================================================================= */
+/* ---- LIGHT ---- */
+[data-contrast="smooth"],
+:root[data-theme="light"][data-contrast="smooth"] {
+  --fg-strong:   var(--neutral-900);
+  --fg-default:  var(--neutral-800);
+  --fg-muted:    var(--neutral-500);
+  --fg-subtle:   var(--neutral-400);
+  --fg-disabled: var(--neutral-300);
+  --border-subtle:  var(--neutral-100);
+  --border-default: var(--neutral-200);
+  --border-strong:  var(--neutral-300);
+  --bg-app:   var(--neutral-0);
+  --bg-muted: var(--neutral-50);
+  --dur-fast: 220ms; /* @kind other */ --dur-base: 320ms; /* @kind other */ --dur-default: 320ms; /* @kind other */ --ease-default: var(--ease-in-out); /* @kind other */
+}
+[data-contrast="high"],
+:root[data-theme="light"][data-contrast="high"] {
+  --fg-strong:   #000000;
+  --fg-default:  #000000;
+  --fg-muted:    var(--neutral-800);
+  --fg-subtle:   var(--neutral-700);
+  --fg-disabled: var(--neutral-600);
+  --border-subtle:  var(--neutral-400);
+  --border-default: var(--neutral-600);
+  --border-strong:  var(--neutral-800);
+  --bg-app:     #ffffff;
+  --bg-canvas:  #ffffff;
+  --bg-surface: #ffffff;
+  --bg-muted:   var(--neutral-100);
+  --ring-width: 3px;
+}
+/* ---- DARK ---- */
+:root[data-theme="dark"][data-contrast="smooth"] {
+  --fg-strong:   var(--neutral-100);
+  --fg-default:  var(--neutral-300);
+  --fg-muted:    var(--neutral-500);
+  --fg-subtle:   var(--neutral-600);
+  --fg-disabled: var(--neutral-700);
+  --border-subtle:  var(--neutral-900);
+  --border-default: var(--neutral-800);
+  --border-strong:  var(--neutral-700);
+  --dur-fast: 220ms; /* @kind other */ --dur-base: 320ms; /* @kind other */ --dur-default: 320ms; /* @kind other */ --ease-default: var(--ease-in-out); /* @kind other */
+}
+:root[data-theme="dark"][data-contrast="high"] {
+  --fg-strong:   #ffffff;
+  --fg-default:  #ffffff;
+  --fg-muted:    var(--neutral-200);
+  --fg-subtle:   var(--neutral-300);
+  --fg-disabled: var(--neutral-400);
+  --border-subtle:  var(--neutral-600);
+  --border-default: var(--neutral-400);
+  --border-strong:  var(--neutral-200);
+  --bg-app:     #000000;
+  --bg-canvas:  #000000;
+  --bg-surface: #000000;
+  --bg-muted:   var(--neutral-900);
+  --ring-width: 3px;
+}
+</style>
