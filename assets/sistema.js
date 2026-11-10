@@ -346,9 +346,27 @@
       <dl class="kv"><dt>Protocolo</dt><dd class="mono">${s.proto}</dd><dt>Cidadão</dt><dd>${fmt.esc(s.cidadao)}</dd><dt>Bairro</dt><dd>${fmt.esc(CNM.bairroNome(s.bairro))}</dd>
         <dt>Secretaria</dt><dd>${fmt.esc(s.sec)}</dd><dt>Recebida em</dt><dd>${dfmt.dt(s.aberta)}</dd>
         ${s.resolvidaEm ? `<dt>Resolvida em</dt><dd>${dfmt.dt(s.resolvidaEm)}</dd>` : ''}${s.desc ? `<dt>Descrição</dt><dd>${fmt.esc(s.desc)}</dd>` : ''}</dl>
+      <div class="status-edit">
+        <span class="status-edit-label" id="stLabel">Alterar situação</span>
+        <div class="seg" role="group" aria-labelledby="stLabel">${Object.entries(STATUS).map(([k, v]) =>
+          `<button type="button" class="tone-${v.tone}" data-st="${k}" aria-pressed="${s.status === k}">${v.label}</button>`).join('')}</div>
+        ${s.via === 'app' ? '<small class="muted">O cidadão recebe a atualização no app.</small>' : ''}
+      </div>
     </div>
     <div class="dialog-actions"><button class="btn btn-primary" data-close>Fechar</button></div>`;
     dlg.querySelector('[data-close]').onclick = () => dlg.close();
+    dlg.querySelectorAll('[data-st]').forEach(b => b.onclick = () => setStatus(s, b.dataset.st));
+  }
+
+  function setStatus(s, st) {
+    if (s.status === st) return;
+    s.status = st;
+    s.resolvidaEm = st === 'resolvida' ? Date.now() : null;
+    if (s.via === 'app') Bus.emit('status', { proto: s.proto, status: st, sec: s.sec, cat: s.tipo });
+    toast(STATUS[st].tone, 'check', `Situação alterada para ${STATUS[st].label}`, `Protocolo ${s.proto} · ${s.tipo}`);
+    S.flash.add('sol:' + s.proto);
+    renderDialog();
+    refresh(true);
   }
 
   function confirmReset() {

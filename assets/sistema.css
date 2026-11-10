@@ -210,3 +210,8 @@ table.data .actions .btn { min-height: 30px; font-size: 12px; padding: 0 10px; }
   .pager { margin-left: 0; }
   .kv { grid-template-columns: 1fr; gap: 2px; } .kv dd { margin-bottom: 8px; }
 }
+
+/* Alterar situação no detalhe da solicitação */
+.status-edit { display: grid; gap: 8px; margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--border-subtle); }
+.status-edit-label { font-size: var(--text-sm); font-weight: 600; color: var(--fg-default); }
+.status-edit .seg button { min-height: 38px; font-size: var(--text-sm); }

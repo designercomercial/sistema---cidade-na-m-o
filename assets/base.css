@@ -79,6 +79,7 @@ button, input, select, textarea { font: inherit; color: inherit; }
 .seg button[aria-pressed="true"].tone-info    { color: var(--fg-info);    border-color: var(--border-info); }
 .seg button[aria-pressed="true"].tone-warning { color: var(--fg-warning); border-color: var(--border-warning); }
 .seg button[aria-pressed="true"].tone-danger  { color: var(--fg-danger);  border-color: var(--border-danger); }
+.seg button[aria-pressed="true"].tone-success { color: var(--fg-success); border-color: var(--border-success); }
 .seg button:not([aria-pressed="true"]) { background: transparent; border-color: transparent; }
 
 @media (prefers-reduced-motion: reduce) {

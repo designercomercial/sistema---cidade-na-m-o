@@ -339,8 +339,8 @@
       r.status = p.status; r.updated = Date.now(); persist();
       if (!EMBED) Chime.play('info');
       vibrate([150]);
-      showPush({ tone: '', label: p.sec || 'Solicitação', title: `Sua solicitação está ${p.status === 'resolvida' ? 'resolvida' : 'em andamento'}`,
-        msg: `Protocolo #${p.proto} · ${p.cat}. ${p.status === 'resolvida' ? 'Obrigado por ajudar a cuidar da cidade.' : 'A equipe já foi encaminhada.'}`,
+      showPush({ tone: '', label: p.sec || 'Solicitação', title: p.status === 'aberta' ? 'Sua solicitação foi reaberta' : `Sua solicitação está ${p.status === 'resolvida' ? 'resolvida' : 'em andamento'}`,
+        msg: `Protocolo #${p.proto} · ${p.cat}. ${p.status === 'resolvida' ? 'Obrigado por ajudar a cuidar da cidade.' : p.status === 'aberta' ? 'Ela voltou para a fila de atendimento.' : 'A equipe já foi encaminhada.'}`,
         onOpen: () => { S.history = []; go('reports', null, false); } });
       render();
     }

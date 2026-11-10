@@ -53,7 +53,7 @@ const DADOS = (() => {
       solicitacoes.push({
         proto: '', tipo: tp.tipo, sec: tp.sec, bairro: bairroPick(),
         origem: wpick([['App', 62], ['Telefone 156', 18], ['Presencial', 12], ['WhatsApp', 8]]),
-        status, aberta: t, resolvidaEm: status === 'resolvida' ? t + ri(2, 52) * 3600e3 : null, cidadao: nome(),
+        status, aberta: t, resolvidaEm: status === 'resolvida' ? Math.max(t + 10 * 60e3, Math.min(t + ri(2, 52) * 3600e3, NOW - ri(5, 60) * 60e3)) : null, cidadao: nome(),
       });
     }
   }

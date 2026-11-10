@@ -18,5 +18,5 @@ Requisito: Node.js 18 ou mais recente. Não precisa instalar pacotes.
 | Cidadãos | Cidadãos cadastrados no app |
 | Configurações | Município, tema, som, simulação e reinício da demonstração |
 
-O sistema só visualiza: a situação das solicitações é atualizada pelas secretarias, fora deste painel.
+Para alterar a situação de uma solicitação (Aberta, Em andamento, Resolvida), clique nela e use **Alterar situação**. Se ela veio do app, o cidadão recebe a atualização no celular.
 Os dados (bairros, cidadãos e solicitações) são fictícios.
